@@ -203,7 +203,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">{language === 'ar' ? 'مواقع الفحص الفني الدوري' : 'Periodic Inspection Locations'}</h2>
             </div>
             <div className="flex justify-center">
-              <img src="/images/map-saudi.png" alt="Saudi Arabia Map" className="w-full max-w-5xl rounded-lg shadow-lg" />
+              <img src="/images/map-saudi.png" alt="Saudi Arabia Map" className="w-full max-w-4xl rounded-lg shadow-lg" />
             </div>
           </div>
         </section>
