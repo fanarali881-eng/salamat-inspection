@@ -383,7 +383,19 @@ export default function BookingPage() {
                       </div>
                       <div>
                         <span className="font-medium">{language === 'ar' ? 'نوع الخدمة: ' : 'Service Type: '}</span>
-                        {t(submittedData.serviceType)}
+                        {(() => {
+                          const serviceMap: Record<string, string> = {
+                            'periodic': language === 'ar' ? 'الفحص الدوري' : 'Periodic Inspection',
+                            'pre_purchase': language === 'ar' ? 'فحص قبل الشراء' : 'Pre-Purchase Inspection',
+                            'roadside': language === 'ar' ? 'فحص على الطريق' : 'Roadside Inspection',
+                            'roadside_assistance': language === 'ar' ? 'المساعدة على الطريق' : 'Roadside Assistance',
+                            'vehicle_towing': language === 'ar' ? 'نقل المركبات المعطلة' : 'Vehicle Towing',
+                            'on_site_repair': language === 'ar' ? 'تصليح ميداني' : 'On-Site Repair',
+                            'garage_repair': language === 'ar' ? 'تصليح في الكراجات' : 'Garage Repair',
+                            'technical_inspection': language === 'ar' ? 'فحص فني شامل' : 'Technical Inspection'
+                          };
+                          return serviceMap[submittedData.serviceType] || submittedData.serviceType;
+                        })()}
                       </div>
                     </div>
                     <Button onClick={handleCloseDialog} className="w-full mt-4">
