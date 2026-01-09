@@ -105,7 +105,3 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
-
-pnpm-lock.yaml
-package-lock.json
-yarn.lock
