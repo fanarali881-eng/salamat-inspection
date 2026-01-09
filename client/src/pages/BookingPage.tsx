@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { useTranslation } from '@/lib/i18n';
@@ -41,6 +42,8 @@ export default function BookingPage() {
   const [bookingId, setBookingId] = useState<number | null>(null);
   const [verificationCode, setVerificationCode] = useState('');
   const [email, setEmail] = useState('');
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [submittedData, setSubmittedData] = useState<BookingFormData | null>(null);
 
   const createBookingMutation = trpc.booking.create.useMutation();
   const sendCodeMutation = trpc.verification.sendCode.useMutation();
@@ -79,10 +82,12 @@ export default function BookingPage() {
         });
 
         if (codeResult.success) {
-          toast.success(t('success'), {
-            description: t('verificationSent'),
-          });
-          setStep('verification');
+          setSubmittedData(data);
+          setShowSuccessDialog(true);
+          setTimeout(() => {
+            setShowSuccessDialog(false);
+            setStep('verification');
+          }, 3000);
         } else {
           toast.error(t('error'), {
             description: codeResult.message,
@@ -362,6 +367,45 @@ export default function BookingPage() {
         </div>
       </main>
       <Footer />
+      
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <DialogTitle className="text-center text-xl">
+              {language === 'ar' ? 'تم حجز الموعد بنجاح' : 'Appointment Booked Successfully'}
+            </DialogTitle>
+            <DialogDescription className="text-center space-y-3 pt-4">
+              {submittedData && (
+                <>
+                  <div className="text-base font-semibold text-foreground">
+                    {language === 'ar' ? 'اسم العميل: ' : 'Customer Name: '}
+                    {submittedData.customerName}
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div>
+                      <span className="font-medium">{language === 'ar' ? 'التاريخ: ' : 'Date: '}</span>
+                      {new Date(submittedData.preferredDate).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US')}
+                    </div>
+                    <div>
+                      <span className="font-medium">{language === 'ar' ? 'الوقت: ' : 'Time: '}</span>
+                      {submittedData.preferredTime}
+                    </div>
+                    <div>
+                      <span className="font-medium">{language === 'ar' ? 'نوع الخدمة: ' : 'Service Type: '}</span>
+                      {t(submittedData.serviceType)}
+                    </div>
+                  </div>
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
