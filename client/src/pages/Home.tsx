@@ -143,10 +143,6 @@ export default function Home() {
                       {t('bookNow')}
                     </Button>
                   </Link>
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                    <MapPin className="h-5 w-5 me-2" />
-                    {t('findNearest')}
-                  </Button>
                 </div>
               </div>
               <div className="relative">
