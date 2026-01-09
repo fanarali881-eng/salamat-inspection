@@ -117,7 +117,7 @@ export const translations = {
     
     // Footer
     aboutUs: 'عن سلامات',
-    aboutUsDesc: 'نحن نقدم خدمات فحص فني شامل للمركبات بأعلى معايير الجودة والسلامة',
+    aboutUsDesc: 'نحن نقدم خدمات فحص فني شامل للمركبات بأعلى معايير الجودة والسلامة بالإضافة إلى خدمة صيانة المركبات',
     quickLinks: 'روابط سريعة',
     privacyPolicy: 'سياسة الخصوصية',
     termsOfService: 'شروط الاستخدام',
@@ -262,7 +262,7 @@ export const translations = {
     
     // Footer
     aboutUs: 'About Salamat',
-    aboutUsDesc: 'We provide comprehensive vehicle inspection services with the highest quality and safety standards',
+    aboutUsDesc: 'We provide comprehensive vehicle inspection services with the highest quality and safety standards, in addition to vehicle maintenance services',
     quickLinks: 'Quick Links',
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
