@@ -379,7 +379,7 @@ export default function BookingPage() {
                       </div>
                       <div>
                         <span className="font-medium">{language === 'ar' ? 'الوقت: ' : 'Time: '}</span>
-                        {submittedData.preferredTime}
+                        {submittedData.preferredTime || 'غير محدد'}
                       </div>
                       <div>
                         <span className="font-medium">{language === 'ar' ? 'نوع الخدمة: ' : 'Service Type: '}</span>
