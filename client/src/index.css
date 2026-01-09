@@ -45,7 +45,7 @@
 :root {
   /* Custom colors matching reference design */
   --salamat-blue: oklch(0.45 0.12 240); /* Dark blue */
-  --salamat-green: oklch(0.65 0.15 150); /* Light green */
+  --salamat-green: oklch(0.50 0.15 160); /* Dark green */
   
   --primary: var(--salamat-green);
   --primary-foreground: oklch(1 0 0);
