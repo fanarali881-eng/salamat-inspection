@@ -44,6 +44,7 @@ export default function BookingPage() {
   const [email, setEmail] = useState('');
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [submittedData, setSubmittedData] = useState<BookingFormData | null>(null);
+  const [isDialogLoading, setIsDialogLoading] = useState(false);
 
   const createBookingMutation = trpc.booking.create.useMutation();
   const sendCodeMutation = trpc.verification.sendCode.useMutation();
@@ -62,16 +63,20 @@ export default function BookingPage() {
   const serviceType = watch('serviceType');
 
   const onSubmit = async (data: BookingFormData) => {
-    // Show success dialog immediately without backend
     setSubmittedData(data);
     setShowSuccessDialog(true);
+    setIsDialogLoading(true);
     
-    // Auto close after 5 seconds
+    // Show loading for 3 seconds then show success
     setTimeout(() => {
-      setShowSuccessDialog(false);
-      // Reset form
-      reset();
-    }, 5000);
+      setIsDialogLoading(false);
+    }, 3000);
+  };
+  
+  const handleCloseDialog = () => {
+    setShowSuccessDialog(false);
+    setIsDialogLoading(false);
+    reset();
   };
 
   const handleVerification = async () => {
@@ -341,41 +346,53 @@ export default function BookingPage() {
       </main>
       <Footer />
       
-      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+      <Dialog open={showSuccessDialog} onOpenChange={handleCloseDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              {isDialogLoading ? (
+                <Loader2 className="w-8 h-8 text-green-600 dark:text-green-400 animate-spin" />
+              ) : (
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
             </div>
             <DialogTitle className="text-center text-xl">
-              {language === 'ar' ? 'تم حجز الموعد بنجاح' : 'Appointment Booked Successfully'}
+              {isDialogLoading 
+                ? (language === 'ar' ? 'جاري الحجز...' : 'Booking...')
+                : (language === 'ar' ? 'تم حجز الموعد بنجاح' : 'Appointment Booked Successfully')
+              }
             </DialogTitle>
-            <DialogDescription className="text-center space-y-3 pt-4">
-              {submittedData && (
-                <>
-                  <div className="text-base font-semibold text-foreground">
-                    {language === 'ar' ? 'اسم العميل: ' : 'Customer Name: '}
-                    {submittedData.customerName}
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div>
-                      <span className="font-medium">{language === 'ar' ? 'التاريخ: ' : 'Date: '}</span>
-                      {new Date(submittedData.preferredDate).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US')}
+            {!isDialogLoading && (
+              <DialogDescription className="text-center space-y-3 pt-4">
+                {submittedData && (
+                  <>
+                    <div className="text-base font-semibold text-foreground">
+                      {language === 'ar' ? 'اسم العميل: ' : 'Customer Name: '}
+                      {submittedData.customerName}
                     </div>
-                    <div>
-                      <span className="font-medium">{language === 'ar' ? 'الوقت: ' : 'Time: '}</span>
-                      {submittedData.preferredTime}
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        <span className="font-medium">{language === 'ar' ? 'التاريخ: ' : 'Date: '}</span>
+                        {new Date(submittedData.preferredDate).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US')}
+                      </div>
+                      <div>
+                        <span className="font-medium">{language === 'ar' ? 'الوقت: ' : 'Time: '}</span>
+                        {submittedData.preferredTime}
+                      </div>
+                      <div>
+                        <span className="font-medium">{language === 'ar' ? 'نوع الخدمة: ' : 'Service Type: '}</span>
+                        {t(submittedData.serviceType)}
+                      </div>
                     </div>
-                    <div>
-                      <span className="font-medium">{language === 'ar' ? 'نوع الخدمة: ' : 'Service Type: '}</span>
-                      {t(submittedData.serviceType)}
-                    </div>
-                  </div>
-                </>
-              )}
-            </DialogDescription>
+                    <Button onClick={handleCloseDialog} className="w-full mt-4">
+                      {language === 'ar' ? 'إنهاء' : 'Close'}
+                    </Button>
+                  </>
+                )}
+              </DialogDescription>
+            )}
           </DialogHeader>
         </DialogContent>
       </Dialog>
