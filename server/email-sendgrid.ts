@@ -66,7 +66,7 @@ export async function sendVerificationEmail(
         </div>
         <div class="footer">
           <p style="margin: 0 0 10px 0;"><strong>سلامات لفحص سلامة المركبات</strong></p>
-          <p style="margin: 0;">الرياض - مروه - 11461، المملكة العربية السعودية</p>
+          <p style="margin: 0;">الرياض - العليا - 12221، المملكة العربية السعودية</p>
           <p style="margin: 5px 0 0 0;">هاتف: 00966-541331452</p>
         </div>
       </div>
@@ -110,7 +110,7 @@ export async function sendVerificationEmail(
         </div>
         <div class="footer">
           <p style="margin: 0 0 10px 0;"><strong>Salamat Vehicle Safety Inspection</strong></p>
-          <p style="margin: 0;">Riyadh - Murwah - 11461, Saudi Arabia</p>
+          <p style="margin: 0;">Riyadh - Al Olaya - 12221, Saudi Arabia</p>
           <p style="margin: 5px 0 0 0;">Phone: 00966-541331452</p>
         </div>
       </div>
@@ -233,7 +233,7 @@ export async function sendBookingConfirmationEmail(
         </div>
         <div class="footer">
           <p style="margin: 0 0 10px 0;"><strong>سلامات لفحص سلامة المركبات</strong></p>
-          <p style="margin: 0;">الرياض - مروه - 11461، المملكة العربية السعودية</p>
+          <p style="margin: 0;">الرياض - العليا - 12221، المملكة العربية السعودية</p>
           <p style="margin: 5px 0 0 0;">رقم الترخيص: 1-1-YV5YA</p>
         </div>
       </div>
@@ -311,7 +311,7 @@ export async function sendBookingConfirmationEmail(
         </div>
         <div class="footer">
           <p style="margin: 0 0 10px 0;"><strong>Salamat Vehicle Safety Inspection</strong></p>
-          <p style="margin: 0;">Riyadh - Murwah - 11461, Saudi Arabia</p>
+          <p style="margin: 0;">Riyadh - Al Olaya - 12221, Saudi Arabia</p>
           <p style="margin: 5px 0 0 0;">License No: 1-1-YV5YA</p>
         </div>
       </div>
