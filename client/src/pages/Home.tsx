@@ -196,6 +196,18 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Map Section */}
+        <section className="py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">{language === 'ar' ? 'مواقع الفحص الفني الدوري' : 'Periodic Inspection Locations'}</h2>
+            </div>
+            <div className="flex justify-center">
+              <img src="/images/map-saudi.png" alt="Saudi Arabia Map" className="w-full max-w-5xl rounded-lg shadow-lg" />
+            </div>
+          </div>
+        </section>
+
         {/* Why Choose Us Section */}
         <section id="about" className="py-20 bg-muted/50">
           <div className="container">
