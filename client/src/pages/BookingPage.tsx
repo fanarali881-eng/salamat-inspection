@@ -62,43 +62,16 @@ export default function BookingPage() {
   const serviceType = watch('serviceType');
 
   const onSubmit = async (data: BookingFormData) => {
-    try {
-      const result = await createBookingMutation.mutateAsync({
-        ...data,
-        vehicleYear: Number(data.vehicleYear),
-        preferredDate: new Date(data.preferredDate),
-        emailVerified: false,
-        language,
-      });
-
-      if (result.success) {
-        setBookingId(result.bookingId);
-        setEmail(data.customerEmail);
-        
-        // Send verification code
-        const codeResult = await sendCodeMutation.mutateAsync({
-          email: data.customerEmail,
-          language,
-        });
-
-        if (codeResult.success) {
-          setSubmittedData(data);
-          setShowSuccessDialog(true);
-          setTimeout(() => {
-            setShowSuccessDialog(false);
-            setStep('verification');
-          }, 3000);
-        } else {
-          toast.error(t('error'), {
-            description: codeResult.message,
-          });
-        }
-      }
-    } catch (error) {
-      toast.error(t('error'), {
-        description: t('bookingError'),
-      });
-    }
+    // Show success dialog immediately without backend
+    setSubmittedData(data);
+    setShowSuccessDialog(true);
+    
+    // Auto close after 5 seconds
+    setTimeout(() => {
+      setShowSuccessDialog(false);
+      // Reset form
+      reset();
+    }, 5000);
   };
 
   const handleVerification = async () => {
