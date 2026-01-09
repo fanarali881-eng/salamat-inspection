@@ -29,10 +29,8 @@ export default function Header() {
         {/* Logo */}
         <Link href="/">
           <a className="flex items-center space-x-2 rtl:space-x-reverse">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
-              س
-            </div>
-            <span className="text-xl font-bold">{t('siteName')}</span>
+            <img src="/logo.png" alt="Salamat Logo" className="h-12 w-12" />
+            <span className="text-xl font-bold">Salamat Vichel Safety inspection</span>
           </a>
         </Link>
 
